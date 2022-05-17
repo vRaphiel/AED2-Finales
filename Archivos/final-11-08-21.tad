@@ -1,0 +1,87 @@
+Ejercicio 1
+Escribir la especificación de un TAD que modele una catapulta medieval. 
+En ella se carga de a una piedra por vez, se enrosca una soga para generar tensión en el mástil y al soltarse la soga la piedra sale disparada. 
+
+Idea:
+Asumo que tengo la catapulta
+Puedo definir una piedra como un ℕ.
+
+Se carga la piedra de una en una. Entonces, la acción disparar consta previamente de:
+	- Cargar piedra
+	- Tensar soga
+	- Tensada la soga se dispara
+Por ende tengo que tener las acciones:
+	- Cargar piedra
+	- Tensar Soga (Solo si hay piedra cargada)
+	- Disparar soga
+	
+Defino "Hay piedra?" que me dice, dada una catapulta T o F, si es T hay piedra
+¿Como cargo una piedra?
+Con una catapulta y una piedra, eso me da una catapulta
+
+TAD NombreTad
+	Igualdad Observacional:();
+	Géneros: nombreTad
+	Exporta: nombreTad, observadores, generadores, 
+	Usa: Bool, Nat
+	
+	Observadores Básicos:
+		piedras: catapulta -> ℕ
+		hayPiedra?: catapulta -> bool
+		tensado?: catapulta -> bool
+		
+	Generadores:
+		crearCatapulta: piedras -> catapulta
+		cargarPiedra: catapulta c -> catapulta (¬hayPiedra?(c))
+		tensarSoga: catapulta -> catapulta (solo si hay piedra)
+		soltarSoga: catapulta -> catapulta (solo si hay tensado)
+	Otras Operaciones:
+		
+		
+	Axiomas:
+		piedras(crearCatapulta(a)) ≡ a
+		piedras(cargarPiedra(c)) ≡ piedras(c) - 1
+		piedras(tensarSoga(c)) ≡ piedras(c)
+		piedras(soltarSoga(c)) ≡ piedras(c)
+		
+		hayPiedra?(crearCatapulta(p)) ≡ false
+		hayPiedra?(cargarPiedra(c)) ≡ false
+		hayPiedra?(tensarSoga(c)) ≡ true
+		hayPiedra?(soltarSoga(c)) ≡ true
+		
+		tensado?(crearCatapulta(p)) ≡ false
+		tensado?(cargarPiedra(c)) ≡ false
+		tensado?(tensarSoga(c)) ≡ tensado?(c)
+		tensado?(soltarSoga(c)) ≡ false		
+		
+Fin TAD
+
+Ejercicio 2
+En el contexto de un diseño/implementación de un tipo abstracto, 
+¿en que reazonamientos/justificaciones podría ser necesario recurrir al invariante de representación?
+
+El invariante de representación es un predicado que nos indica si una instancia del tipo de representación es válida para representar una instancia del tipo representado.
+Cuando estamos diseñando, normalmente el pensar en recurrir al invariante de representación no está muy claro pues estamos diseñando el tipo abstrato.
+Una vez tenemos nuestro TAD, pasamos a la etapa del invariante de representación porque es el "modo" a través del cual acudiremos a la implemtanción.
+Definirlo antes de la implementación es una ayuda muy grande para, a la hora de implementar, tener una coherencia respecto a nuestro TAD puesto que,
+es un paso al modo imperativo.
+Si el invariante no puede representarse correctamente es porque hay alguna incongruencia en el diseño del TAD.
+Si en la implementación tenemos problemas para aplicarlo, entonces volvemos al invariante de representación para validar que nuestros tipos de datos
+sean correctos y, de no ser así, es porque nuevamente, el problema está más que nada en el diseño.
+Entonces, las justificaciones para recurrir al invariante de representación se basan en saber si pudimos hacer un buen diseño de nuestro TAD y,
+si no podemos realizar una implementación correcta, revisar el invariante nos sirve para ver los estados de nuestro programa.
+
+Ejercicio 3
+Indique y justifique si son verdaderas o falsas las siguientes afirmaciones:
+a) El análisis “del potencial” y el “del banquero” son técnicas para demostrar la complejidad promedio de una operación de una estructura de datos
+b) La complejidad del caso promedio de una operación es siempre es menor o igual a la complejidad del peor caso
+c) Las Skip lists son estructuras de datos que tienen un peor caso de inserción y búsqueda igual a los AVLs
+d) La operación de inserción en el métodos de acceso secuencial indexado tiene un peor caso O(log n)
+
+a)
+b) Verdadero. Sucede que el caso promedio representa el intervalo en el cual, por lo general, se va a mover un algoritmo en tiempo de ejecución teórico.
+Este caso promedio se basta en una toma como cota superior del peor caso y una cota del mejor caso como la cota inferior. En intermedio, queda el promedio
+Por ser esta razon, el caso promedio siempre es menor o igual al peor caso ya que representa la complejidad en los casos más generales.
+
+c) 
+d)
