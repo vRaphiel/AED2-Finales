@@ -1,0 +1,92 @@
+Ejercicio 1
+Se desea modelar una ventanilla de un banco donde los clientes son
+atendidos ni bien se termina con el anterior. Identificar cuál es el problema (si lo
+hubiese) y explicar por qué lo es en cada uno de los siguientes casos.
+a) 
+generadores
+inaugurar: -> banco
+llega_cliente: banco x cliente -> banco
+atender_cliente: banco b -> banco (largo_de_la_cola(b)>0)
+pase_el_que_sigue: banco b -> banco (largo_de_la_cola(b)>0)
+
+observadores
+largo_de_la_cola: banco -> nat
+
+b) 
+generadores
+inaugurar: -> banco
+llega_cliente: banco x cliente -> banco
+
+observadores
+largo_de_la_cola: banco -> nat
+
+otras operaciones
+atender_cliente: banco b -> banco (largo_de_la_cola(b)>0)
+
+c) 
+generadores
+inaugurar: -> banco
+llega_cliente: banco x cliente -> banco
+
+observadores
+largo_de_la_cola: banco -> nat
+
+otras operaciones
+atender_cliente: banco b -> banco (largo_de_la_cola(b)>0)
+clientes_atendidos: banco -> secu(cliente)
+
+
+Por como se plantea el problema, la frase "Se atiende un cliente ni bien se termina con el anterior",
+significa que hay comportamiento automático. Por ende, la lógica dicta que al llegar un cliente este es atendido y,
+si llega otro, se coloca en la fila.
+Luego, la atención es automática. Por ende, (a) no sirve pues en sus generadores tiene atender_cliente y el método
+pase_el_que_sigue con lo cual, al existir estos generadores, uno mismo le esta diciendo al TAD que dichas acciones
+son llamadas, son métodos que tiene que ejercer, y no modelan el comportamiento aumático
+
+Ejercicio 2
+El diseño de un módulo requiere la utilización de un conjunto y un diccionario con complejidad a lo sumo logarítmica para 
+todas sus operaciones. ¿Alguna de las siguientes alternativas de diseño le parece más apropiada que las demás? 
+Justifique. Si no, proponga una usted, justificando.
+a) conjunto sobre diccionario sobre AVL.
+b) conjunto sobre AVL, diccionario sobre AVL, AVL sobre punteros.
+c) AVL sobre ABB sobre AB sobre punteros, conjunto sobre AVL, diccionario sobre AVL.
+d) Conjunto sobre AVL, diccionario sobre tabla de hashing abierta con conjuntos en las celdas.
+
+Operaciones: Insercción, borrado, busqueda.
+
+Ejercicio 3
+Determine si las siguientes afirmaciones son verdaderas o falsas, justificando.
+a) El invariante vale en la pre pero no en la post de todas las funciones de la interfaz.
+b) El invariante vale en la pre y en la post de todas las funciones de implementación que se corresponden con funciones de la interfaz
+(ejemplo: iAgregar).
+c) El invariante vale en la pre y en la post de todas las funciones auxiliares de la implementación.
+d) La función de abstracción provee una explicación de cómo se usa la estructura de representación.
+e) Por ende, determina la complejidad de las operaciones.
+
+a) Falso. El invariante siempre en la pre y en la post y se tiene que prevalercer durante todo el proceso.
+Puede que en algún paso intermedio falle en algun punto especifico si se necesita resolver un caso particular, pero
+en la visión global sobre el problema, el Invariante funciona siempre.
+
+b) Verdadero
+c) Falso. No necesariamente el invariante vale en todas las funciones auxiliares. Si la función auxiliar se exporta, entonces si.
+d) Falso. Devuelve la imagen abstracta del tipo representado, no necesariamente una forma de como se representa o como se usa.
+e) Falso. La funcion de abstracción y el invariante de representación no determina la complejidad del algoritmo. Eso lo hace el algoritmo
+mismo que tiene que se válido con las funciones si se lo intenta enviar al mundo abstracto o, en otro caso, mantener el invariante de representación
+
+Ejercicio 4
+Se deben ordenar los parciales de 1000 alumnos, en base a su apellido. Para facilitar la práctica, los m docentes deciden dividir la tarea entre ellos.
+Recomiende dos posibles métodos para que utilicen (los métodos propuestos pueden o no corresponderse con algoritmos conocidos o con combinaciones de
+ellos).
+Tenga en cuenta:
+- Debe ser realizable por personas.
+- Por más de una.
+- Se pretende además que sea eficiente.
+Calcule la complejidad asintótica de los métodos propuestos. Justifique sus respuestas.
+
+Se deben ordenar 1000 alumnos por apellido.
+Se tienen m docentes
+
+Idea 1:
+Bucket sort, con m buckets. Criterio:
+Se toma la parte entera de 1000 / m para poder tener una referencia de cuantos alumnos deben ser ordenados por cada docente.
+Posteriormente, 
