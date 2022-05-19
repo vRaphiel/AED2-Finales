@@ -52,7 +52,10 @@ b) conjunto sobre AVL, diccionario sobre AVL, AVL sobre punteros.
 c) AVL sobre ABB sobre AB sobre punteros, conjunto sobre AVL, diccionario sobre AVL.
 d) Conjunto sobre AVL, diccionario sobre tabla de hashing abierta con conjuntos en las celdas.
 
-Operaciones: Insercción, borrado, busqueda.
+Operaciones: Insercción, borrado, busqueda. Se busca que sea logarítmica, o sea O(log n)
+En AVL todas las operaciones se ejecutan en O(log n)
+
+
 
 Ejercicio 3
 Determine si las siguientes afirmaciones son verdaderas o falsas, justificando.
@@ -89,4 +92,7 @@ Se tienen m docentes
 Idea 1:
 Bucket sort, con m buckets. Criterio:
 Se toma la parte entera de 1000 / m para poder tener una referencia de cuantos alumnos deben ser ordenados por cada docente.
-Posteriormente, 
+Entonces, tenemos m buckets con 1000 / m buckets cada uno. Luego aplicamos mergesort sobre cada bucket.
+Una vez ordenado cada uno, hacemos la unión y tenemos el total, solo hay que ordenar esta parte.
+
+Idea 2:
