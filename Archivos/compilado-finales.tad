@@ -1,0 +1,252 @@
+Ejercicio 1:
+La igualdad observacional es un predicado que nos permite diferenciar si dos instancias
+del aspecto de la vida real que nuestro TAD está modelando  se comportan de la misma manera
+en el sentido semántico más que sintactico.
+Si lo relacionamos con la igualdad obseracionarl de DameUno: Conj[alfa] ⇒ alfa entonces,
+cumple el rol de que no se rompa la congruencia.
+Si utilizamos otra axiomatización de DameUno tal que DameUno(Ag(a, c)) ≡ a nos daría un
+orden en el conjunto y no buscamos eso puesto que DameUno(Ag(b, Ag(c, vacio))) ≠ dameUno(Ag(c, Ag(b, vacio))).
+
+Ejercicio 2:
+Tenemos n elementos que contienen clave primara y una secundaria.
+Hay m << n claves secundarias distintas.
+
+Forma 1:
+Bucket Sort + Merge Sort, o doble Bucket Sort:
+Usaremos un bucket sort con la condición de que, cada bucket sea una clave primaria. Visto de esta manera
+recorremos todos los elementos y colocamos en los respectivos buckets con sus claves primarias.
+Una vez tengamos en todos los buckets todos los elementos de clave primaria, entonces por cada bucket aplicamos
+Merge Sort para ordenar cada uno. Finalmente unimos todos los buckets y tendremos todos los elementos ordenados
+pues ya sabemos que los buckets son las claves primarias.
+
+Esta forma utiliza arreglos ya que, los buckets, son arreglos y, lo que haya dentro de ello tambien seran arreglos.
+Iterar sobre estos es sencillo.
+La complejidad es O((n + m + m log m) = O(n + m log(m)) ya que son n buckets y, por cada uno, un merge sort que en peor caso es O(m)
+
+Forma 2:
+Usar un AVL para las claves primarias. De esta forma tenemos todo ordenado y, por cada nodo, tener un AVL de claves secundarias.
+De esa forma, hacemos un inorder y obtenemos todos los resultados.
+In order me permite recorrer el arbol en orden ascendente, del menor al mayor y, por cada nodo, accedemos a su AVL y hacemos inorder
+nuevamente para obtener finalmente, los elementos ordenados por clave primaria y luego por clave secundaria.
+El nodo principal se basa en clave primaria, el AVL interno a ese es el elemetno con la secundaria.
+
+Ejercicio 3:
+La funcion de abstracción no necesariamente debe ser sobreyectia sobre el conjunto de términos ya que por la forma
+en la que esta construida la función de abstracción no es posible diferenciar entre instancias del TAD 
+observacionalmente iguales y, por lo tanto, no es posible garantizar que todo término del TAD sea imagen del ABS.
+
+La función de abstracción si es sobreyectiva sobre las clases de equivalencia
+
+Ejercicio 5:
+En este sistema es muy problable romper la congruencia porque puede ocurrir que, aplicando axiomas, si se llegue de un TAD a otro,
+pero no representen necesariamente lo mismo, sintácticamente puede terminar ocurriendo que Ag(1, Ag(2, Ø)) != Ag(2, Ag(1, Ø)) cosa que,
+en los TAD, no es cierto.
+Esto ocurre porque la igualdad de instancias no dependerá de la igualdad observacional si no de la axiomatización de las funciones, que se basa en
+la sintaxis más no en la sem´pantica.
+
+Ejercicio 6:
+Algoritmo: Array2Heap
+para(a ∈ array)
+	encolar(a)
+	
+donde encolar es
+encolar(a)
+	insertar elemento al final del heap
+	subir(elemento)
+	
+donde subir es
+subir(a)
+	mientras(elemento no es raiz) ∧L prioridad(a) < prioridad(padre(a))
+		intercambiar elemento con el padre
+
+El costo es Θ(n log(n)) pues se aplica la aproximación de Stirling.
+Esto se basa en sumar el costo de insertar cada uno de los n elementos y, la operación encolar,
+puede ocupar log(n) pues es una comparación en entre nodos del heap.
+Luego ocurre log n! y por aproximación de Stirling es Θ(n log(n))
+
+Ejercicio 7:
+La técnica de divide & conquer se basa en lo siguiente:
+Tengo un problema, lo divido en sub problemas y los resuelvo por separado aplicando la misma técnica
+hasta tener casos base. Resueltos los subproblemas, se une todo en la solución final.
+
+Entonces, con esta idea en mente, la ecuación de recurrencia se basa en tener:
+Dividir en a subproblemas de tamaño máximo n/c. El costo de determinar subproblemas (divide) 
+y unirlos (conquer) es bn^d. Suponemos que la base (n=1) cuesta b.
+
+Esta ecuación de recurrencia nos sirve para calcular la complejidad de nuestros algoritmos
+aplicando el teorema maestro donde:
+T(n) = a*T(n/c) + f(n) si n > 1
+T(n) = 1 si n = 1
+
+Ejercicio 9:
+El rol del invariante de representación en el diseño de TAD es ser una ayuda para poder pasar del mundo 
+abstracto al mundo imperativo. Nos dice que formato tendrá nuestra estructura y la complejidad de sus algoritmos.
+Este invariante nos dirá que formato tendrá nuestra estructura y como debe estar compuesta a  partir de su definición.
+Por ejemplo, si vamos a guardar el tamaño y este será un natural T en un conjunto, en nuestra estructura no deberian
+haber mas de t elementos.
+Tambien el invariante de representación nos garantiza información que puede ser crucial a la hora de demostrar propuedades
+del tipo en cuestión.
+Tambien nos permite garantizar inicializaciones inadecuadas de la estructura y limita el dominio de la función de ábstracción.
+
+Ejercicio 10:
+a) Falso. Deja de ser max-heap por el invariante del heap de que todo elemento es cumple una condición de prioridad frente a otro.
+b) Falso. Deja de ser max-heap por el invariante del heap de que todo elemento es cumple una condición de prioridad frente a otro.
+
+Ejercicio 11:
+El invariante de representación como se dijo antes, nos indica que formato tendrá neustra estructura y, como estará representado el algoritmo.
+A demás, nos da información sobre aquellas estructuras de datos que vamos a aplicar para representar el objeto del mundo de los TADs y, teniendo
+esa información, podemos obtener la complejidad algoritmica.
+Por ejemplo, si tenemos un AVL, el tener en el invariante la altura facilmente nos permite saber que la complejidad de las operaciones del 
+AVL dependen de la altura. O en una lista, su tamaño, nos dirá que los algoritmos dependerán del mismo como la busqueda o la insercción.
+Entonces, en muchos casos si no se cumple el Invariante de representación es imposible garantizar complejdiades.
+Relacion entre Función de abstracción y correctitus de la implementación:
+La función de abstracción es el paso entre la implementación y la especificación. Si la función de abstracción está mal, muy probablemente
+la implementación este mal y, a la hora de querer realizar una correccción, no podrá hacerse.
+
+Ejercicio 12:
+CLOSERTOAVG(S). Toma como input un conjunto S y devuelve el valor contenido de S más cercano al promedio de los valores contenidos en S.
+	
+Ejercicio 13:
+a) Falso. Los observadores son formulas que permiten diferenciar instancias del TAD en clases de equivalencia.
+En general se axiomatizan con los generadores, pero no necesariamente.
+b) Verdadero. Si una propiedad distingue TADs observacionalmente iguales quiere decir que está observando alguna propiedad que no observa los observadores básicos.
+c) Falso. Se rompería la congruencia si eso pasara.
+d) A => B. B no puede suceder de ninguna otra manera. Verdadero. B es comportamiento automático.
+
+Ejercicio 14: 
+a)
+Un max-heap.
+Encolo siempre el mayor elemento del arreglo, quitandolo una vez que lo tengo del arreglo. Hasta tener k.
+Cuando tengo k elementos, me fijo si la suma de ellos es menor que X. si es así sigo hasta el final, si no no hago nada.
+Esto cuesta O(n log n) pues la comprobación (suma de los k elementos mayores) es O(1). El contar hasta k es O(k) < O(n) en peor caso.
+Luego es todo O(nlogn)
+Otra es selection sort. Al llegar a la k-esima iteración valido si la suma es menor a X y luego sigo, si no continuo. O(n^2)
+b)
+Insertion Sort.
+
+Ejercicio 15:
+a) La condición que convierte un ABB en un AVL es que, los AVL son arboles balanceados en altura, esto significa que la altura de los subarboles
+izquierdo y derecho de cada nodo difieren en a lo sumo una unidad.
+
+b) Un algoritmo naive para esto es recorrer los subarboles y contar la altura de cada uno. Entonces se compara por cada sub arbol la altura 
+y nos fijamos si difere en a lo sumo uno.
+Primero vemos que sea arbol binario
+
+esAvl1(raiz r) {
+	if(tieneHijoIzquierdo(r) && Izq(r) > r) { return false }
+	if(tieneHijoDerecho(r) && Der(r) < r) { return false }
+	
+	return(esAvl1(Izq(r)) && esAvl1(Der(r)))
+} O(n) porque recorremos todo el arbol
+
+<int altura, bool valor> esAvl2(raiz r){
+	if(esHoja(r)){return <0, true>}
+	resIzq = esAvl2(izq(r))
+	resDer = esAvl2(der(r))
+	
+	if(!(resIzq.valor) || !(resDer.valor)){return <-1, false>}
+	if( resIzq.altura > resDer.altura + 1){return <-1, false>}
+	else if(resDer.altura > resIzq.altura +1){return <-1, false>}
+	
+	return <1+max(resIzq.valor, resDer.valor), true>
+}
+
+Con este algoritmo y el teorema maestro sabemos que dividimos en 2 partes el problema, luego recorremos hasta el fondo.
+Finalmente, solo se cuentan los nodos y se hacen sumas, las operaciones matemáticas son O(1).
+Entonces, solamente estamos recorriendo el arbol nodo por nodo. Complejidad de O(n)
+
+c) No se
+
+Ejercicio 16:
+
+Ejercicio 17:
+Hashing abierto. Se marcan los sitios con un elemento, aquellas que no lo tuvieron y aquellas que tuvieron pero fue borrado.
+Necesitamos una buena función de hash, hasta entonces, recorremos la tabla de hash en O(1) y luego accedemos.
+Asumo que h(k) es mi función de hash.
+Entonces:
+
+Sea h la función de hash con dirección h(i, k) con k mi clave e i  el inidice
+
+Insercción(el, k, T) : 
+	i <- 0
+	mientras T[h(k, i)] != ocupado && i < |T|
+		i <- i + 1
+	fin mientras
+	si i < |T|
+		T[h(k, i)] <- (el, k)
+		margar como ocupado T[h(k, i)]
+	si no
+		<overflow>
+	fin si
+fin función
+	
+Busco la clave k en la tabla T	
+Busqueda(k, T):
+	i <- 0
+	mientras i < |T| y k != T[h(k, i)].clave y T[h(k, i)] esté ocupado o haya sido borrado
+		i <- i + 1
+	fin mientras
+	si i < |T| y T[h(k, i)] esta ocupado
+		T[h(k, i)]
+	si no
+		devolver "No Esta"
+	fin si
+fin función
+	
+Borrado(k, T):
+	i <- 0
+	mientras i < |T| y T[h(k, i)] esté ocupado o haya sido borrado y T[h(k,i)] != k
+	 i <- i + 1
+	fin mientras
+	if i < |T| y T[h(k, i)] esta ocupado
+		marcar como borrado T[h(k,i)]
+	si no
+		devolver "No Esta"
+	fin si
+Fin funcion
+
+Si tenemos un hashing en la cual no se puede distinguir borrado de vacio entonces debemos recorrer todos los 
+elementos para que no queden huevos y no romper la búsqueda. En tal caso, cuando vamos recorriendo vamos comparando
+todos y vemos lo que nos haga falta.
+
+Ejercicio 18:
+Por el invariante
+
+Ejercicio 19:
+Un Arbol-B de orden M tiene las siguientes propiedades:
+- La raiz es hoja o tiene desde 2 hasta M hijos.
+- Los nodos que no son hojas (Excepto la raiz) tienen entre M/2 y M hijos.
+- Todas las hojas están a la misma altura
+
+Con estas propiedades nos aseguramos que el arbol esté balanceado.
+
+Ejercicio 20:
+Se podria estar haciendo todo lo que se hace. Seria engorroso.
+Sin el invariante programado estariamos dejando pasar instancias no válidas en el programa, por ende, siempre
+debe estar programado. Claramente a veces algunas cosas del invariante no se pueden programar tal como este lo dice
+pero como vale al principio y al final, si se sigue al pie de la letra entonces esta bien. 
+
+Ejercicio 21:
+Doble cola de prioridad
+El max y el min esta en O(1).
+Una cola de prioridad es un heap, asi que asumo que será eso.
+Será un min-heap de forma tal que en su primera posición esté una tupla.
+Esa tupla está compuesta por: 
+El minimo en primer coord
+Otro heap en segunda coord, un max heap.
+De esta forma se accede al primer nodo y si queres min lo tenes en O(1) y si queres máx accedes
+al segundo elemento y a la raiz O(1)
+
+desencolar min y max en log(n)
+Se puede pues solo se accede al primer nodo y se tiene el max-heap, si no se reestructura todo el
+min-heap y se mantiene en primer nodo el segundo.
+Idem con lo demás.
+
+lo mismo aplica en borrados
+
+Ingresar m elementos
+Se accede y listo
+
+Ejercicio 22:
+
+Ejercicio 23:
