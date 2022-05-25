@@ -52,9 +52,6 @@ b) conjunto sobre AVL, diccionario sobre AVL, AVL sobre punteros.
 c) AVL sobre ABB sobre AB sobre punteros, conjunto sobre AVL, diccionario sobre AVL.
 d) Conjunto sobre AVL, diccionario sobre tabla de hashing abierta con conjuntos en las celdas.
 
-Operaciones: Insercción, borrado, busqueda. Se busca que sea logarítmica, o sea O(log n)
-En AVL todas las operaciones se ejecutan en O(log n)
-
 
 
 Ejercicio 3
@@ -72,9 +69,11 @@ en la visión global sobre el problema, el Invariante funciona siempre.
 
 b) Verdadero
 c) Falso. No necesariamente el invariante vale en todas las funciones auxiliares. Si la función auxiliar se exporta, entonces si.
-d) Falso. Devuelve la imagen abstracta del tipo representado, no necesariamente una forma de como se representa o como se usa.
-e) Falso. La funcion de abstracción y el invariante de representación no determina la complejidad del algoritmo. Eso lo hace el algoritmo
-mismo que tiene que se válido con las funciones si se lo intenta enviar al mundo abstracto o, en otro caso, mantener el invariante de representación
+d) Falso. Devuelve la imagen abstracta del tipo representado, no necesariamente una forma de como se representa o como se usa. Eso es objetivo del invariante
+de representación.
+e) Falso. La funcion de abstracción no determina la complejidad de las operaciones, determina el paso de lo abstracto al mundo imperativo
+y nos sirve para revisar el correcto funcionamiento del algoritmo. Es el invariante de representación quien nos permite medir la complejidad
+de las operaciones.
 
 Ejercicio 4
 Se deben ordenar los parciales de 1000 alumnos, en base a su apellido. Para facilitar la práctica, los m docentes deciden dividir la tarea entre ellos.
@@ -96,3 +95,4 @@ Entonces, tenemos m buckets con 1000 / m buckets cada uno. Luego aplicamos merge
 Una vez ordenado cada uno, hacemos la unión y tenemos el total, solo hay que ordenar esta parte.
 
 Idea 2:
+Un heap de tamaño m, y una función de hash donde se puedan ir los valores. Luego por cada uno se lo ordena, y se devuelven las cosas correspondientes.

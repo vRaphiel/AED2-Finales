@@ -250,3 +250,29 @@ Se accede y listo
 Ejercicio 22:
 
 Ejercicio 23:
+Resuelto en papel
+
+Ejercicio 26:
+Buscar el minimo entre los minimos constantemente
+
+Ejercicio 27:
+Tenemos dos vectores S  y T con numeros entre 0 y 10^6. |S| = 10^4 y |T| = 10^5
+T está ordenado. Queremos hacer la insercción de ambos.
+a) S está en S' y S' es ABB balanceado.
+Como T está ordenado, por cada elemento de T buscamos en el ABB, esto toma log(S) busqueda
+por elemento, son 10^5 elementos entonces es 10^5*log(10^4) = (10^5)*(4log(10))
+
+b) La complejidad depende de buscar con función de hash y recorrer los elementos dentro de la lista
+en dicha posición de la tabla. En peor caso todos van a la lista y eso implica recorrer en O(10^4) la misma
+
+c) Quicksort: (10^4)*(4log(10)). Vemos un merge. El coste de mergear es menor.
+
+a = 2*b = 4*c => a/4 = b/2 = c
+
+Si hacemos el ordenamiento entonces nos aseguramos que las búsquedas simplemente dependan de lo que hay en T.
+Esto implica un acceso en O(1), si en esa posición está el numero, listo, match y si no está entonces no hay match.
+Como peor caso, vamos a tener que recorrer T y S a lo sumo 1 vez.
+Mientras que por B, el problema va en que si hacemos la tabla de hash, la función de hashing puede mandar todo al mismo sitio y vamos a tener que recorrer 
+las listas una y otra vez perdiendo mucho tiempo en ellas.
+El ABB es lo peor para estos casos porque pese a que esté balanceado, la busqueda en el mismo depende de la altura del arbol y se hará a lo sumo
+cantidad de veces que busquemos en T, por ende termina creciendo mucho la complejidad.
